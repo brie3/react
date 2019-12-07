@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { App } from "./components/App";
 
 const Message = props => (
   <div>
@@ -63,4 +64,4 @@ class Blog extends React.Component {
   }
 }
 
-ReactDOM.render(<Blog />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
