@@ -1,7 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-export const Message = props => (
-    <div>
-        <b>{props.name}</b>: {props.content}
-    </div>
-);
+export class Message extends Component {
+  static propTypes = {
+      name: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired
+  };
+  render() {
+      return (
+          <div>
+              <b>{this.props.name}</b>: {this.props.content}
+          </div>
+      );
+  }
+}

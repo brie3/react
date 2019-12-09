@@ -1,5 +1,5 @@
-const path = require("path")
-const htmlWebpackPlugin = require("html-webpack-plugin")
+const path = require("path");
+const htmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: path.resolve(__dirname, "src", "index.jsx"),
@@ -17,6 +17,10 @@ module.exports = {
                     presets: ["@babel/env", "@babel/react"],
                     plugins: ["@babel/plugin-proposal-class-properties"]
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader"
             }
         ]
     },
@@ -29,4 +33,4 @@ module.exports = {
             filename: "index.html"
         })
     ]
-}
+};
