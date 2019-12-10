@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { CommentForm } from "./CommentForm";
 import { MessageFild } from "./MessageField";
-import { FormButton } from "./FormButton";
 import "../css/style.css";
 
 export class App extends Component {
@@ -35,6 +34,7 @@ export class App extends Component {
       ]
   };
   componentDidUpdate() {
+      let last = this.state.messages[this.state.messages.length - 1].name;
       if (this.state.newComment) {
           setTimeout(() => {
               this.setState({
@@ -42,10 +42,7 @@ export class App extends Component {
                       ...this.state.messages,
                       {
                           name: "Robot",
-                          content:
-                "Hello, human, " +
-                this.state.messages[this.state.messages.length - 1].name +
-                "."
+                          content: "Hello, human, " + last + "."
                       }
                   ],
                   newComment: false
@@ -76,7 +73,7 @@ export class App extends Component {
               onSubmit={this.addCommentHandle}
           />
       ) : (
-          <FormButton onClick={this.toggleForm} content={"Добавить сообщение"} />
+          <button onClick={this.toggleForm}>Добавить сообщение</button>
       );
       return (
           <div>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { FormButton } from "./FormButton";
 import PropTypes from "prop-types";
 
 export class CommentForm extends Component {
@@ -39,7 +38,7 @@ export class CommentForm extends Component {
                   required
               />
               <input type="submit" value="Отправить" />
-              <FormButton onClick={this.props.onCancel} content={"Отменить"} />
+              <button onClick={this.props.onCancel}>Отменить</button>
           </form>
       );
   }
