@@ -3,11 +3,11 @@ import { Messenger } from "./Messanger";
 import "../css/style.css";
 
 export class App extends Component {
-  render() {
-    return (
-      <div>
-        <Messenger />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Messenger />
+            </div>
+        );
+    }
 }

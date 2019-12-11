@@ -4,59 +4,59 @@ import { MessengerForm } from "./MessengerForm";
 
 export class Messenger extends Component {
   state = {
-    messages: [
-      {
-        name: "Vasia Pupkine",
-        content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
-      },
-      {
-        name: "Doloremque",
-        content:
+      messages: [
+          {
+              name: "Vasia Pupkine",
+              content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
+          },
+          {
+              name: "Doloremque",
+              content:
           "In hac habitasse platea dictumst. Sed quis eros suscipit, tristique augue quis"
-      },
-      {
-        name: "Voluptatum",
-        content:
+          },
+          {
+              name: "Voluptatum",
+              content:
           "Rerum totam dicta error, doloremque officiis rem molestias asperiores cupiditate,"
-      },
-      {
-        name: "Aspernatur",
-        content: "Veritatis aliquam eaque provident voluptatum fuga?"
-      },
-      {
-        name: "Velit",
-        content:
+          },
+          {
+              name: "Aspernatur",
+              content: "Veritatis aliquam eaque provident voluptatum fuga?"
+          },
+          {
+              name: "Velit",
+              content:
           "Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus."
-      }
-    ]
+          }
+      ]
   };
 
   sendNewMessage = message => {
-    this.setState(prevState => {
-      return {
-        messages: prevState.messages.concat([message])
-      };
-    });
+      this.setState(prevState => {
+          return {
+              messages: prevState.messages.concat([message])
+          };
+      });
   };
 
   componentDidUpdate() {
-    const name = this.state.messages[this.state.messages.length - 1].name;
+      const name = this.state.messages[this.state.messages.length - 1].name;
 
-    if (name != "Bot") {
-      setTimeout(
-        () => this.sendNewMessage({ name: "Bot", content: "Привет, я робот" }),
-        1000
-      );
-    }
+      if (name != "Bot") {
+          setTimeout(
+              () => this.sendNewMessage({ name: "Bot", content: "Привет, я робот" }),
+              1000
+          );
+      }
   }
 
   render() {
-    const { messages } = this.state;
-    return (
-      <div>
-        <MessageList messages={messages}></MessageList>
-        <MessengerForm />
-      </div>
-    );
+      const { messages } = this.state;
+      return (
+          <div>
+              <MessageList messages={messages}></MessageList>
+              <MessengerForm />
+          </div>
+      );
   }
 }
