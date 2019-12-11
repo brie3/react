@@ -1,15 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-export const Message = props => {
-    return (
-        <div>
-            <b>{props.name}</b>: {props.content}
-        </div>
-    );
+export const messageType = {
+  name: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
 };
 
-Message.propTypes = {
-    name: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired
-};
+export class Message extends Component {
+  static propTypes = messageType;
+  render() {
+    const { name, content } = this.props;
+    return (
+      <div>
+        <b>{name && "Anonymus"}</b>: {content}
+      </div>
+    );
+  }
+}
