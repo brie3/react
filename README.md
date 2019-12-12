@@ -11,7 +11,7 @@
 5. Issue the html file into which the assembly is connected using webpack-dev-server.
 6. Implement the ability to send a new message with fixed text: add button; process a button click with a function that adds a new message to the message array - for example, with the text “Normal”. The handler function should also do a DOM’s renderer so that the new message is not just added to the array, but also appears on the page of the user.
 
-   </p>
+    </p>
 
 ### React component life cycle
 
@@ -21,4 +21,20 @@
 2. Implement sending messages at the click of a button.
 3. A robot must respond to each message sent (use componentDidUpdate).
 4. Add the author to the messages and display it in the interface. Redo the logic of the response from the robot in accordance with this.
-   </p>
+    </p>
+
+### Continue diving into React and plug in the UI library
+
+   <p>
+
+1. Make up the messenger by explicitly highlighting the field for messages and visually separating messages from the user and the responses of the robot.
+2. Add the ability to enter the message text and send it:
+   the message should be sent either by pressing a button in the interface, or by pressing Enter on the keyboard;
+   the input field should be cleared when sending a message.
+
+3. Connect Material-UI and use it to make up the input field, buttons for sending a message.
+4. Create new components: Layout, ChatList and Header.
+   Layout should be at the top of the application (connect to index.jsx), and ChatList, Header and MessageField inside it; Header should be at the top of the Layout and occupy the entire width; ChatList and MessageField should be located next to each other below the Header so that the Message Field occupies a large part (for example, 30% to 70%); ChatList should only visually reflect a list of 3-5 chats (call them whatever you like) and so far does not carry any functionality. Switching between chats is not necessary; For layout ChatList use List from Material-UI.
+5. Fix a bug that occurs if you send a message and, without waiting for a response from the robot, start typing something in the input field. All problems and solutions are discussed in detail in the next lesson.
+
+    </p>

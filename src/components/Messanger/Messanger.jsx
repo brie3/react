@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { MessageList } from "./MessageList/MessageList";
-import { MessengerForm } from "./MessengerForm";
+import { MessageList } from "../MessageList/MessageList";
+import { MessengerForm } from "../MessengerForm/MessengerForm";
+import("./Messenger.css");
 
 export class Messenger extends Component {
     state = {
@@ -45,7 +46,7 @@ export class Messenger extends Component {
                 () =>
                     this.sendNewMessage({
                         name: "Robot",
-                        content: "Hello, human."
+                        content: "Hello, human," + name + "."
                     }),
                 1000
             );
@@ -55,7 +56,7 @@ export class Messenger extends Component {
     render() {
         const { messages } = this.state;
         return (
-            <div>
+            <div className="messenger">
                 <MessageList messages={messages}></MessageList>
                 <MessengerForm onSendMessage={this.sendNewMessage} />
             </div>

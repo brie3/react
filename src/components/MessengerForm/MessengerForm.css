@@ -1,0 +1,11 @@
+.messengerform {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@media all and (min-width: 800px) {
+    .messengerform {
+        flex-direction: row;
+    }
+}

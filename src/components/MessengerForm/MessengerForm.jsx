@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Button, TextField } from "@material-ui/core";
+import { Fab, TextField } from "@material-ui/core";
+import { Send } from "@material-ui/icons";
 import PropTypes from "prop-types";
+import("./MessengerForm.css");
 
 export class MessengerForm extends Component {
     state = {
@@ -14,6 +16,10 @@ export class MessengerForm extends Component {
         this.props.onSendMessage({
             name: this.state.author,
             content: this.state.content
+        });
+        this.setState({
+            author: "",
+            content: ""
         });
     };
     changeHandle = event => {
@@ -29,7 +35,7 @@ export class MessengerForm extends Component {
     render() {
         const { author, content } = this.state;
         return (
-            <div>
+            <div className="messengerform">
                 <TextField
                     id="standard-basic"
                     label="Author"
@@ -43,17 +49,12 @@ export class MessengerForm extends Component {
                     name="content"
                     value={content}
                     onChange={this.changeHandle}
-                    ref={this.textareaRef}
                     onKeyDown={this.keyDownHandle}
                     autoFocus
                 />
-                <Button
-                    onClick={this.sendHandle}
-                    variant="contained"
-                    color="primary"
-                >
-                    Send Message
-                </Button>
+                <Fab onClick={this.sendHandle} size="small" color="primary">
+                    <Send fontSize="small" />
+                </Fab>
             </div>
         );
     }
