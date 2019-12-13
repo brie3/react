@@ -1,10 +1,5 @@
-@media all and (min-width: 600px) {
-    .chatlist {
-        flex: 1 auto !important;
-    }
-}
 @media all and (min-width: 800px) {
     .chatlist {
-        order: 1;
+        flex: 1 auto !important;
     }
 }

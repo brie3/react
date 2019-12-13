@@ -10,7 +10,7 @@
     align-self: flex-end;
 }
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
     .message {
         width: max-content;
     }
