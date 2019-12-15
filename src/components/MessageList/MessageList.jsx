@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Message, messageType } from "../Message/Message";
 import PropTypes from "prop-types";
-import("./MessageList.css");
+import("./MessageList.sass");
 
 export class MessageList extends Component {
     static propTypes = {

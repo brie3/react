@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Fab, TextField } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
 import PropTypes from "prop-types";
-import("./MessengerForm.css");
+import("./MessengerForm.sass");
 
 export class MessengerForm extends Component {
     state = {
@@ -22,12 +22,12 @@ export class MessengerForm extends Component {
             content: ""
         });
     };
-    changeHandle = event => {
+    handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
         });
     };
-    keyDownHandle = event => {
+    handleKeyDown = event => {
         if (event.keyCode === 13 && event.ctrlKey) {
             this.handleSend();
         }
@@ -35,25 +35,25 @@ export class MessengerForm extends Component {
     render() {
         const { author, content } = this.state;
         return (
-            <form className="messengerform">
+            <div className="messengerform">
                 <TextField
                     label="Author"
                     name="author"
                     value={author}
-                    onChange={this.changeHandle}
+                    onChange={this.handleChange}
                 />
                 <TextField
                     label="Message"
                     name="content"
                     value={content}
-                    onChange={this.changeHandle}
-                    onKeyDown={this.keyDownHandle}
+                    onChange={this.handleChange}
+                    onKeyDown={this.handleKeyDown}
                     autoFocus
                 />
                 <Fab onClick={this.handleSend} size="small" color="primary">
                     <Send fontSize="small" />
                 </Fab>
-            </form>
+            </div>
         );
     }
 }

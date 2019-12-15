@@ -1,23 +1,18 @@
 import React, { Component } from "react";
-import { List, ListItem, ListItemText } from "@material-ui/core";
-import("./ChatList.css");
+import { List, ListItemText } from "@material-ui/core";
+import PropTypes from "prop-types";
+import("./ChatList.sass");
 
 export class ChatList extends Component {
+    static propTypes = {
+        chats: PropTypes.array
+    };
     render() {
         return (
-            <List className="chatlist" component="nav">
-                <ListItem button>
-                    <ListItemText primary="chat-1" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemText primary="chat-2" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemText primary="chat-3" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemText primary="chat-4" />
-                </ListItem>
+            <List className="chatlist">
+                {this.props.chats.forEach((item, index) => {
+                    <ListItemText primary={item.name} key={index} />;
+                })}
             </List>
         );
     }

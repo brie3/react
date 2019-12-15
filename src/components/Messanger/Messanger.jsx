@@ -1,36 +1,53 @@
 import React, { Component } from "react";
-import { MessageList } from "../MessageList/MessageList";
+import { ChatList } from "../ChatList/ChatList";
+//import { MessageList } from "../MessageList/MessageList";
 import { MessengerForm } from "../MessengerForm/MessengerForm";
-import("./Messenger.css");
+import("./Messenger.sass");
 
 export class Messenger extends Component {
     state = {
-        messages: [
-            {
-                name: "Vasia Pupkine",
-                content:
-                    "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
+        chats: {
+            1: {
+                name: "chat-1",
+                messages: [
+                    {
+                        name: "Vasia Pupkine",
+                        content:
+                            "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
+                    },
+                    {
+                        name: "Doloremque",
+                        content:
+                            "In hac habitasse platea dictumst. Sed quis eros suscipit, tristique augue quis"
+                    }
+                ]
             },
-            {
-                name: "Doloremque",
-                content:
-                    "In hac habitasse platea dictumst. Sed quis eros suscipit, tristique augue quis"
+            2: {
+                name: "chat-2",
+                messages: [
+                    {
+                        name: "Voluptatum",
+                        content:
+                            "Rerum totam dicta error, doloremque officiis rem molestias asperiores cupiditate,"
+                    },
+                    {
+                        name: "Aspernatur",
+                        content:
+                            "Veritatis aliquam eaque provident voluptatum fuga?"
+                    }
+                ]
             },
-            {
-                name: "Voluptatum",
-                content:
-                    "Rerum totam dicta error, doloremque officiis rem molestias asperiores cupiditate,"
-            },
-            {
-                name: "Aspernatur",
-                content: "Veritatis aliquam eaque provident voluptatum fuga?"
-            },
-            {
-                name: "Velit",
-                content:
-                    "Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus."
+            3: {
+                name: "chat-3",
+                messages: [
+                    {
+                        name: "Velit",
+                        content:
+                            "Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus."
+                    }
+                ]
             }
-        ]
+        }
     };
 
     sendNewMessage = message => {
@@ -54,10 +71,11 @@ export class Messenger extends Component {
     }
 
     render() {
-        const { messages } = this.state;
+        const { chats } = this.state;
         return (
             <div className="messenger">
-                <MessageList messages={messages}></MessageList>
+                <ChatList chats={chats} />
+                {/* <MessageList messages={chats}></MessageList> */}
                 <MessengerForm onSendMessage={this.sendNewMessage} />
             </div>
         );

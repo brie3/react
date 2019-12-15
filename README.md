@@ -38,3 +38,17 @@
 5. Fix a bug that occurs if you send a message and, without waiting for a response from the robot, start typing something in the input field. All problems and solutions are discussed in detail in the next lesson.
 
     </p>
+
+### Routing in React. We break the messenger into chats
+
+   <p>
+
+1. Connect BrowserRouter (from react-router-dom).
+2. Create a top Router component with Switch and Routes.
+3. Break the application into chats using a router (URLs: / chat / <chat_id> /).
+4. Implement storage of messages in a dictionary with id as a key.
+5. Implement the storage of chats in a dictionary with id as a key, and as a value with a dictionary from the chat name and a list of id-messages from this chat.
+6. Make a profile page located along the path / profile /, and a link to it in the Header’s messenger.
+7.  - Implement the addition of new chats to the messenger. To do this, you need to link together the chats stored in the state MessageField and chats rendered in the ChatList.
+
+    </p>
