@@ -16,7 +16,6 @@ export class MessengerForm extends Component {
     handleSend = () => {
         this.props.onSendMessage({
             chatID: this.props.chatID,
-            isNew: true,
             name: this.state.author ? this.state.author : "Anonymous",
             content: this.state.content
         });
@@ -37,8 +36,9 @@ export class MessengerForm extends Component {
     };
     render() {
         const { author, content } = this.state;
+
         return (
-            <div className="messengerform">
+            <div className="messenger-form">
                 <TextField
                     label="Author"
                     name="author"
