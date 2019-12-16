@@ -17,7 +17,7 @@ export class Message extends Component {
         });
         return (
             <div className={msgClass}>
-                <b>{name || "Anonymous"}</b>: {content}
+                <b>{name}</b>: {content}
             </div>
         );
     }

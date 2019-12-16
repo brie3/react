@@ -49,6 +49,6 @@
 4. Implement storage of messages in a dictionary with id as a key.
 5. Implement the storage of chats in a dictionary with id as a key, and as a value with a dictionary from the chat name and a list of id-messages from this chat.
 6. Make a profile page located along the path / profile /, and a link to it in the Header’s messenger.
-7.  - Implement the addition of new chats to the messenger. To do this, you need to link together the chats stored in the state MessageField and chats rendered in the ChatList.
+7. Implement the addition of new chats to the messenger. To do this, you need to link together the chats stored in the state MessageField and chats rendered in the ChatList.
 
     </p>

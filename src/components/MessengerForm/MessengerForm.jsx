@@ -10,11 +10,14 @@ export class MessengerForm extends Component {
         content: ""
     };
     static propTypes = {
+        chatID: PropTypes.string.isRequired,
         onSendMessage: PropTypes.func.isRequired
     };
     handleSend = () => {
         this.props.onSendMessage({
-            name: this.state.author,
+            chatID: this.props.chatID,
+            isNew: true,
+            name: this.state.author ? this.state.author : "Anonymous",
             content: this.state.content
         });
         this.setState({

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ChatList } from "../ChatList/ChatList";
-//import { MessageList } from "../MessageList/MessageList";
+import { Header } from "../Header/Header";
+import { MessageList } from "../MessageList/MessageList";
 import { MessengerForm } from "../MessengerForm/MessengerForm";
 import("./Messenger.sass");
 
@@ -49,34 +50,66 @@ export class Messenger extends Component {
             }
         }
     };
-
+    botTimers = [];
     sendNewMessage = message => {
+        const { id } = this.props.match.params;
+        this.isNew = message.isNew;
+        this.botTimers.forEach(timer => clearTimeout(timer));
+        this.botTimers = [];
+
         this.setState(prevState => {
-            return { messages: prevState.messages.concat([message]) };
+            let chats = prevState.chats;
+            if (id !== message.chatID) {
+                return;
+            }
+            chats[id].messages.push({
+                name: message.name,
+                content: message.content
+            });
+            return { chats };
         });
     };
 
     componentDidUpdate() {
-        const name = this.state.messages[this.state.messages.length - 1].name;
-        if (name != "Robot") {
-            setTimeout(
-                () =>
-                    this.sendNewMessage({
-                        name: "Robot",
-                        content: "Hello, human," + name + "."
-                    }),
-                1000
+        const { id } = this.props.match.params;
+        const name = this.state.chats[id].messages[
+            this.state.chats[id].messages.length - 1
+        ].name;
+        if (this.isNew) {
+            this.botTimers.push(
+                setTimeout(
+                    () =>
+                        this.sendNewMessage({
+                            chatID: id,
+                            isNew: false,
+                            name: "Robot",
+                            content: `Hello, human, ${name}. I'm a robot from chat ${id}`
+                        }),
+                    1000
+                )
             );
         }
     }
 
     render() {
         const { chats } = this.state;
+        let { id } = this.props.match.params;
+        id = id ? id : "1";
         return (
             <div className="messenger">
+                <Header id={id} />
                 <ChatList chats={chats} />
-                {/* <MessageList messages={chats}></MessageList> */}
-                <MessengerForm onSendMessage={this.sendNewMessage} />
+                {chats[id] ? (
+                    <MessageList messages={chats[id].messages}></MessageList>
+                ) : (
+                    "Переписка не найдена"
+                )}
+                {chats[id] && (
+                    <MessengerForm
+                        chatID={id}
+                        onSendMessage={this.sendNewMessage}
+                    />
+                )}
             </div>
         );
     }
