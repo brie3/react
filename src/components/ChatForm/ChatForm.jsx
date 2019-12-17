@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Fab, TextField } from "@material-ui/core";
-import { Send } from "@material-ui/icons";
+import { ChatBubble } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import("./ChatForm.sass");
 
@@ -28,13 +28,13 @@ export class ChatForm extends Component {
         return (
             <div className="chat-form">
                 <TextField
-                    label="Chat"
+                    label="Add New Chat"
                     name="title"
                     value={title}
                     onChange={this.handleChange}
                 />
                 <Fab onClick={this.handleSend} size="small" color="primary">
-                    <Send fontSize="small" />
+                    <ChatBubble fontSize="small" />
                 </Fab>
             </div>
         );

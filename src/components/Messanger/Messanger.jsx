@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { List, ListItemText } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import { Header } from "../Header/Header";
-import { Message } from "../Message/Message";
-import { MessengerForm } from "../MessengerForm/MessengerForm";
-import { ChatForm } from "../ChatForm/ChatForm";
+import { ChatList } from "../ChatList/ChatList";
+import { MessageList } from "../MessageList/MessageList";
+import PropTypes from "prop-types";
 import("./Messenger.sass");
 
 export class Messenger extends Component {
+    botTimers = [];
+    lastName = "";
     state = {
         chats: {
             0: {
@@ -50,28 +50,42 @@ export class Messenger extends Component {
             }
         }
     };
-    botTimers = [];
-    lastName = "";
-    sendNewMessage = message => {
+    static propTypes = {
+        match: PropTypes.shape({
+            params: PropTypes.shape({
+                id: PropTypes.string
+            })
+        })
+    };
+    onAddMessage = message => {
         this.botTimers.forEach(timer => clearTimeout(timer));
         this.botTimers = [];
         this.lastName = message.name;
         let { id } = this.props.match.params;
-        id = id ? id : "0";
         if (id !== message.chatID) {
             return;
         }
         this.setState(prevState => {
             let { chats, messages } = prevState;
             let messageID = Object.keys(prevState.messages).length;
-            messages[messageID] = {
-                name: message.name,
-                content: message.content
-            };
-            chats[id].messageIDs.push(messageID);
             return {
-                chats: chats,
-                messages: messages
+                messages: {
+                    ...messages,
+                    [messageID]: {
+                        name: message.name,
+                        content: message.content
+                    }
+                },
+                chats: {
+                    ...chats,
+                    [message.chatID]: {
+                        ...chats[message.chatID],
+                        messageIDs: [
+                            ...chats[message.chatID]["messageIDs"],
+                            messageID
+                        ]
+                    }
+                }
             };
         });
     };
@@ -87,15 +101,14 @@ export class Messenger extends Component {
         });
     };
     componentDidUpdate() {
-        let { id } = this.props.match.params;
-        id = id ? id : "0";
         if (this.lastName === "" || this.lastName === "Robot") {
             return;
         }
+        let { id } = this.props.match.params;
         this.botTimers.push(
             setTimeout(
                 () =>
-                    this.sendNewMessage({
+                    this.onAddMessage({
                         chatID: id,
                         name: "Robot",
                         content: `Hello, human, ${this.lastName}. I'm a robot from chat ${id}`
@@ -108,30 +121,17 @@ export class Messenger extends Component {
     render() {
         const { chats, messages } = this.state;
         let { id } = this.props.match.params;
-        id = id ? id : "0";
-
-        const messageList = chats[id].messageIDs.map((messageID, index) => (
-            <Message
-                key={index}
-                name={messages[messageID].name}
-                content={messages[messageID].content}
-            />
-        ));
-        const chatList = Object.entries(chats).map((item, index) => (
-            <Link to={`/chats/${item[0]}`} key={index}>
-                <ListItemText primary={item[1].title} />
-            </Link>
-        ));
         return (
             <div className="messenger">
                 <Header id={id} />
-                <List className="chat-list">{chatList}</List>
-                <ChatForm onSubmit={this.onAddChat} />
-                <div className="message-list">{messageList}</div>
-                <MessengerForm
-                    chatID={id}
-                    onSendMessage={this.sendNewMessage}
-                />
+                <ChatList chats={chats} onSubmit={this.onAddChat} />
+                {id && (
+                    <MessageList
+                        chatID={id}
+                        messages={chats[id].messageIDs.map(id => messages[id])}
+                        onSubmit={this.onAddMessage}
+                    />
+                )}
             </div>
         );
     }

@@ -9,7 +9,7 @@ export class Header extends Component {
         id: PropTypes.string.isRequired
     };
     static defaultProps = {
-        id: 1
+        id: ""
     };
     render() {
         return (

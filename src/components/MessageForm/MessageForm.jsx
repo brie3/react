@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import { Fab, TextField } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
 import PropTypes from "prop-types";
-import("./MessengerForm.sass");
+import("./MessageForm.sass");
 
-export class MessengerForm extends Component {
+export class MessageForm extends Component {
     state = {
         author: "",
         content: ""
     };
     static propTypes = {
         chatID: PropTypes.string.isRequired,
-        onSendMessage: PropTypes.func.isRequired
+        onSubmit: PropTypes.func.isRequired
     };
     handleSend = () => {
-        this.props.onSendMessage({
+        this.props.onSubmit({
             chatID: this.props.chatID,
             name: this.state.author ? this.state.author : "Anonymous",
             content: this.state.content
@@ -38,7 +38,7 @@ export class MessengerForm extends Component {
         const { author, content } = this.state;
 
         return (
-            <div className="messenger-form">
+            <div className="message-form">
                 <TextField
                     label="Author"
                     name="author"

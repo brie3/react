@@ -9,7 +9,11 @@ export class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Messenger} />
                     <Route exact path="/chats/:id" component={Messenger} />
-                    {/* <Route exact path="/profile" component={} /> */}
+                    <Route
+                        exact
+                        path="/profile"
+                        render={() => <div>Profile</div>}
+                    />
                 </Switch>
             </BrowserRouter>
         );
