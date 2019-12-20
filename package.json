@@ -2,13 +2,13 @@
     "name": "Rishat_Ishbulatov",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "index.jsx",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "webpack --mode=production",
         "dev": "webpack-dev-server --mode=development",
-        "lint": "eslint src/**/*.jsx",
-        "fix": "eslint src/**/*.jsx --fix"
+        "lint": "eslint *.js src/**/*.jsx",
+        "fix": "eslint *.js src/**/*.jsx --fix"
     },
     "keywords": [],
     "author": "",

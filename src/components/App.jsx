@@ -1,13 +1,13 @@
-import React, { Component, createContext } from "react";
+import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Messenger } from "./Messanger/Messanger";
 
-export const UserContext = createContext({});
+import { UserContext } from "../components/UserContext";
 
 export class App extends Component {
     render() {
         return (
-            <UserContext.Provider value={{ name: "test" }}>
+            <UserContext.Provider value={{ user: { name: "test" } }}>
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/" component={Messenger} />
