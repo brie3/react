@@ -8,48 +8,6 @@ import("./Messenger.sass");
 export class Messenger extends Component {
     botTimers = [];
     lastName = "";
-    state = {
-        chats: {
-            0: {
-                title: "chat-0",
-                messageIDs: [0, 1]
-            },
-            1: {
-                title: "chat-1",
-                messageIDs: [2, 3]
-            },
-            2: {
-                title: "chat-2",
-                messageIDs: [4]
-            }
-        },
-        messages: {
-            0: {
-                name: "Vasia Pupkine",
-                content:
-                    "Lorem ipsum dolor sit amet consectetur, adipisicing elit."
-            },
-            1: {
-                name: "Doloremque",
-                content:
-                    "In hac habitasse platea dictumst. Sed quis eros suscipit, tristique augue quis"
-            },
-            2: {
-                name: "Voluptatum",
-                content:
-                    "Rerum totam dicta error, doloremque officiis rem molestias asperiores cupiditate,"
-            },
-            3: {
-                name: "Aspernatur",
-                content: "Veritatis aliquam eaque provident voluptatum fuga?"
-            },
-            4: {
-                name: "Velit",
-                content:
-                    "Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus."
-            }
-        }
-    };
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({
@@ -100,7 +58,7 @@ export class Messenger extends Component {
             return { chats };
         });
     };
-    componentDidUpdate() {
+    /* componentDidUpdate() {
         if (this.lastName === "" || this.lastName === "Robot") {
             return;
         }
@@ -116,22 +74,20 @@ export class Messenger extends Component {
                 1000
             )
         );
-    }
+    } */
 
     render() {
-        const { chats, messages } = this.state;
-        let { id } = this.props.match.params;
+        const { id, chats, messages } = this.props;
+        console.log(messages);
         return (
             <div className="messenger">
                 <Header id={id} />
-                <ChatList chats={chats} onSubmit={this.onAddChat} />
-                {id && (
-                    <MessageList
-                        chatID={id}
-                        messages={chats[id].messageIDs.map(id => messages[id])}
-                        onSubmit={this.onAddMessage}
-                    />
-                )}
+                <ChatList chats={chats} onSubmit={this.props.onAddChat} />
+                <MessageList
+                    chatID={id}
+                    messages={messages}
+                    onSubmit={this.props.onSendMessage}
+                />
             </div>
         );
     }
