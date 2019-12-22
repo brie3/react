@@ -1,7 +1,7 @@
 import { createActions } from "redux-actions";
 
-export const { loadChat, addChat, sendMessage } = createActions({
-    "LOAD_CHAT": () => ({}),
+export const { loadChats, addChat, sendMessage } = createActions({
+    "LOAD_CHATS": () => ({}),
     "ADD_CHAT": (title) => ({ title }),
-    "SEND_MESSAGE": (chatID, message) => ({ chatID, message })
+    "SEND_MESSAGE": (message) => ({ message })
 });

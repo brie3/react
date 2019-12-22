@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import MessengerContainer from "../containers/MessengerContainer";
+import Profile from "../components/Profile/Profile";
 import { initStore } from "../initStore";
 import { Provider } from "react-redux";
 
@@ -18,11 +19,7 @@ export class App extends Component {
                             path="/chats/:id"
                             component={MessengerContainer}
                         />
-                        <Route
-                            exact
-                            path="/profile"
-                            render={() => <div>Profile</div>}
-                        />
+                        <Route exact path="/profile" component={Profile} />
                     </Switch>
                 </BrowserRouter>
             </Provider>

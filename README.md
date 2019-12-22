@@ -52,3 +52,15 @@
 7. Implement the addition of new chats to the messenger. To do this, you need to link together the chats stored in the state MessageField and chats rendered in the ChatList.
 
     </p>
+
+### Redux Application state management
+
+   <p>
+
+1. Connect Redux.
+2. Install and connect the Redux DevTools Extension.
+3. Transfer to Redux chats.
+4. Transfer messages to Redux.
+5. Transfer profile data to Redux and display the name (or any other information from the profile) in the Header’s messenger
+
+    </p>

@@ -1,11 +1,11 @@
 import { handleActions } from "redux-actions";
-import { loadChat, addChat, loadMessages, sendMessage } from "../actions/chatActions";
+import { loadChats, addChat, sendMessage } from "../actions/chatActions";
 import update from "react-addons-update";
 
 const defaultState = { chats: {}, messages: {} };
 
 export default handleActions({
-    [loadChat]: (state, { payload }) => {
+    [loadChats]: (state, { payload }) => {
         return {
             chats: {
                 1: {
@@ -51,6 +51,7 @@ export default handleActions({
     },
     [addChat]: (state, { payload: { title } }) => {
         const chatID = Object.keys(state.chats).length + 1;
+        title = title ? title : `chat-${chatID}`
         return update(state, {
             chats: {
                 $merge: {
@@ -61,7 +62,7 @@ export default handleActions({
             }
         });
     },
-    [sendMessage]: (state, { payload: { chatID, message } }) => {
+    [sendMessage]: (state, { payload: { message } }) => {
         let messageID = Object.keys(state.messages).length;
         return update(state, {
             messages: {
@@ -73,7 +74,7 @@ export default handleActions({
                 }
             },
             chats: {
-                [chatID]: { messageIDs: { $push: [messageID] } }
+                [message.chatID]: { messageIDs: { $push: [messageID] } }
             }
         });
     },
