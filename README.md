@@ -64,3 +64,16 @@
 5. Transfer profile data to Redux and display the name (or any other information from the profile) in the Header’s messenger
 
     </p>
+
+### Redux middlewares, connecting a router to Redux and storing data using Redux-persist
+
+   <p>
+
+1. Connect middlewares.
+2. Create messageMiddleware and transfer the logic of the response from the robot there.
+3. Use middleware to blink (highlight in the list for a short time) the chat that received the message from the robot.
+4. Connect the Router to Redux and switch the transitions between chats from <Link> to push ().
+5. Connect redux-persist and save chats and messages with it.
+6.  - Implement the ability to delete chats and messages.
+
+    </p>
