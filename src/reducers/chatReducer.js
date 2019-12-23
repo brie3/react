@@ -51,7 +51,7 @@ export default handleActions(
                 }
             };
         },
-        [addChat]: (state, { payload: { chatID, title } }) => {
+        [addChat]: (state, { payload: { title, chatID } }) => {
             title = title
                 ? title
                 : `chat-${Object.keys(state.chats).length + 1}`;

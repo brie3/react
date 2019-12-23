@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Fab, TextField } from "@material-ui/core";
 import { ChatBubble } from "@material-ui/icons";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { push } from "connected-react-router";
 import PropTypes from "prop-types";
 import("./ChatForm.sass");
 

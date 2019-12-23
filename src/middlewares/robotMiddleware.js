@@ -1,4 +1,5 @@
-import { sendMessage } from "../actions/chatActions";
+import { sendMessage, addChat } from "../actions/chatActions";
+import { push } from "connected-react-router";
 
 var botTimer = {};
 export const robotMiddleware = store => next => action => {
@@ -14,11 +15,27 @@ export const robotMiddleware = store => next => action => {
                     sendMessage({
                         chatID: chatID,
                         name: "Robot",
-                        content: `Hello, human, ${name}. I'm a robot from chat ${chatID}`
+                        content: `Hello, human, ${name}. I'm a robot from chat with ID ${chatID}.`
                     })
                 ),
             1000
         );
+    }
+    if (action.type == addChat.toString()) {
+        clearTimeout(botTimer);
+        const { chatID } = action.payload;
+        botTimer = setTimeout(
+            () =>
+                store.dispatch(
+                    sendMessage({
+                        chatID: chatID,
+                        name: "Robot",
+                        content: `Hello, human. I'm a robot from chat with ID ${chatID}.`
+                    })
+                ),
+            500
+        );
+        store.dispatch(push("/chats/" + chatID));
     }
     return next(action);
 };

@@ -1,31 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
+import ChatList from "../ChatList/ChatList";
 import { Header } from "../Header/Header";
-import { ChatList } from "../ChatList/ChatList";
 import { MessageList } from "../MessageList/MessageList";
+import PropTypes from "prop-types";
 import("./Messenger.sass");
 
-export class Messenger extends Component {
-    render() {
-        const {
-            chatID,
-            chats,
-            messages,
-            addChat,
-            profile,
-            sendMessage
-        } = this.props;
-        return (
-            <div className="messenger">
-                <Header chatID={chatID} chats={chats} profile={profile} />
-                <ChatList chats={chats} onSubmit={addChat} />
-                {chatID && (
-                    <MessageList
-                        chatID={chatID}
-                        messages={messages}
-                        onSubmit={sendMessage}
-                    />
-                )}
-            </div>
-        );
-    }
+export function Messenger({ chatID, chats, messages, profile, sendMessage }) {
+    return (
+        <div className="messenger">
+            <Header chatID={chatID} chats={chats} profile={profile} />
+            <ChatList />
+            {chatID && (
+                <MessageList
+                    chatID={chatID}
+                    messages={messages}
+                    onSubmit={sendMessage}
+                />
+            )}
+        </div>
+    );
 }
+
+Messenger.propTypes = {
+    chatID: PropTypes.string,
+    chats: PropTypes.object,
+    messages: PropTypes.array,
+    addChat: PropTypes.func,
+    profile: PropTypes.object,
+    sendMessage: PropTypes.func,
+    push: PropTypes.func
+};

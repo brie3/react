@@ -5,8 +5,9 @@ import { PropTypes } from "prop-types";
 import("./Header.sass");
 
 export function Header({ chatID, chats }) {
-    let title = chats ? chats[chatID]["title"] : "Chat";
-    console.log(chatID);
+    let title = chats[chatID]
+        ? capitalizeFirstLetter(chats[chatID].title)
+        : "Chat";
     return (
         <Toolbar className="header">
             <Link to={"/profile"}>
@@ -14,4 +15,13 @@ export function Header({ chatID, chats }) {
             </Link>
         </Toolbar>
     );
+}
+
+Header.propTypes = {
+    chatID: PropTypes.string,
+    chats: PropTypes.object
+};
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
