@@ -10,7 +10,6 @@ class MessengerContainer extends Component {
         this.props.loadChats();
         this.props.loadProfile();
     }
-
     render() {
         return <Messenger {...this.props} />;
     }

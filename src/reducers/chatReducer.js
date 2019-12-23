@@ -46,14 +46,15 @@ export default handleActions(
                     4: {
                         name: "Velit",
                         content:
-                            "Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus."
+                            "Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus. Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus."
                     }
                 }
             };
         },
-        [addChat]: (state, { payload: { title } }) => {
-            const chatID = Object.keys(state.chats).length + 1;
-            title = title ? title : `chat-${chatID}`;
+        [addChat]: (state, { payload: { chatID, title } }) => {
+            title = title
+                ? title
+                : `chat-${Object.keys(state.chats).length + 1}`;
             return update(state, {
                 chats: {
                     $merge: {

@@ -16,7 +16,7 @@ export class Messenger extends Component {
         } = this.props;
         return (
             <div className="messenger">
-                <Header id={chatID} profile={profile} />
+                <Header chatID={chatID} chats={chats} profile={profile} />
                 <ChatList chats={chats} onSubmit={addChat} />
                 {chatID && (
                     <MessageList
