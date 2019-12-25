@@ -1,12 +1,14 @@
 import { combineReducers } from "redux";
-import chatReducer from "./chatReducer";
-import profileReducer from "./profileReducer";
 import { connectRouter } from "connected-react-router";
+import profileReducer from "./profileReducer";
+import chatReducer from "./chatReducer";
+import messageReducer from "./messageReducer";
 
 export default function(history) {
     return combineReducers({
         router: connectRouter(history),
-        chat: chatReducer,
-        profile: profileReducer
+        messageReducer,
+        chatReducer,
+        profileReducer
     });
 }

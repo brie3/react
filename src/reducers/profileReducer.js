@@ -1,15 +1,17 @@
-import { handleActions } from "redux-actions";
-import { loadProfile } from "../actions/profileActions";
+import { LOAD_PROFILE } from "../actions/profileActions";
 
 const defaultState = { profile: {} };
 
-export default handleActions({
-    [loadProfile]: (state, { payload }) => {
-        return {
-            profile: {
-                name: "Hello",
-                content: "World!"
-            }
-        };
+export default function profileReducer(state = defaultState, action) {
+    switch (action.type) {
+        case LOAD_PROFILE:
+            return {
+                profile: {
+                    name: "Hello",
+                    content: "World!"
+                }
+            };
+        default:
+            return state;
     }
-}, defaultState);
+}

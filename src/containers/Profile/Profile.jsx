@@ -8,7 +8,8 @@ import("./Profile.sass");
 export class Profile extends Component {
     static propTypes = {
         name: PropTypes.string,
-        content: PropTypes.string
+        content: PropTypes.string,
+        loadProfile: PropTypes.func.isRequired
     };
     componentDidMount() {
         this.props.loadProfile();
@@ -23,12 +24,10 @@ export class Profile extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        name: state.profile.profile.name,
-        content: state.profile.profile.content
-    };
-};
+const mapStateToProps = ({ profileReducer }) => ({
+    name: profileReducer.profile.name,
+    content: profileReducer.profile.content
+});
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ loadProfile }, dispatch);

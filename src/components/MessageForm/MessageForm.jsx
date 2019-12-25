@@ -10,12 +10,11 @@ export class MessageForm extends Component {
         content: ""
     };
     static propTypes = {
-        chatID: PropTypes.string.isRequired,
+        chatID: PropTypes.string,
         onSubmit: PropTypes.func.isRequired
     };
     handleSend = () => {
         this.props.onSubmit({
-            chatID: this.props.chatID,
             name: this.state.author ? this.state.author : "Anonymous",
             content: this.state.content
         });

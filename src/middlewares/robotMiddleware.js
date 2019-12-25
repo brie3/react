@@ -1,41 +1,40 @@
-import { sendMessage, addChat } from "../actions/chatActions";
+import { ADD_CHAT } from "../actions/chatActions";
+import { sendMessage, SEND_MESSAGE } from "../actions/messageActions";
 import { push } from "connected-react-router";
 
 var botTimer = {};
-export const robotMiddleware = store => next => action => {
-    if (
-        action.type == sendMessage.toString() &&
-        action.payload.message.name !== "Robot"
-    ) {
-        clearTimeout(botTimer);
-        const { chatID, name } = action.payload.message;
-        botTimer = setTimeout(
-            () =>
-                store.dispatch(
-                    sendMessage({
-                        chatID: chatID,
-                        name: "Robot",
-                        content: `Hello, human, ${name}. I'm a robot from chat with ID ${chatID}.`
-                    })
-                ),
-            1000
-        );
-    }
-    if (action.type == addChat.toString()) {
-        clearTimeout(botTimer);
-        const { chatID } = action.payload;
-        botTimer = setTimeout(
-            () =>
-                store.dispatch(
-                    sendMessage({
-                        chatID: chatID,
-                        name: "Robot",
-                        content: `Hello, human. I'm a robot from chat with ID ${chatID}.`
-                    })
-                ),
-            500
-        );
-        store.dispatch(push("/chats/" + chatID));
+const robotMiddleware = store => next => action => {
+    switch (action.type) {
+        case ADD_CHAT:
+            clearTimeout(botTimer);
+            botTimer = setTimeout(
+                () => store.dispatch(send(action.chatID)),
+                500
+            );
+            store.dispatch(push("/chats/" + action.chatID));
+            break;
+        case SEND_MESSAGE:
+            if (action.payload.message.name === "Robot") {
+                return next(action);
+            }
+            clearTimeout(botTimer);
+            botTimer = setTimeout(
+                () =>
+                    store.dispatch(
+                        send(action.chatID, action.payload.message.name)
+                    ),
+                1000
+            );
+            break;
     }
     return next(action);
 };
+
+function send(id, name) {
+    sendMessage({
+        chatID: id,
+        name: "Robot",
+        content: `Hello, human ${name}. I'm a robot from chat with ID ${id}.`
+    });
+}
+export default robotMiddleware;
