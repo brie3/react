@@ -1,10 +1,5 @@
-import { ADD_CHAT, DELETE_CHAT, DELETE_CHATS } from "../actions/chatActions";
-import {
-    SEND_MESSAGE,
-    DELETE_MESSAGE,
-    DELETE_MESSAGES
-} from "../actions/messageActions";
-import update from "react-addons-update";
+import { ADD_CHAT, DELETE_CHATS } from "../actions/chatActions";
+import { SEND_MESSAGE, DELETE_MESSAGES } from "../actions/messageActions";
 
 const defaultState = {
     chats: {
@@ -26,39 +21,50 @@ const defaultState = {
 export default function chatReducer(state = defaultState, action) {
     switch (action.type) {
         case ADD_CHAT:
-            console.log(action);
-            return update(state, {
+            return {
                 chats: {
-                    $merge: {
+                    ...state.chats,
+                    [action.chatID]: { title: action.title, messageIDs: [] }
+                }
+            };
+        case DELETE_CHATS:
+            return {
+                chats: {}
+            };
+        case SEND_MESSAGE:
+            if (!(action.chatID in state.chats)) {
+                return {
+                    chats: {
+                        ...state.chats,
                         [action.chatID]: {
                             title: action.title,
-                            messageIDs: []
+                            messageIDs: [action.messageID]
                         }
                     }
-                }
-            });
-        case DELETE_CHAT:
-            delete state.chats;
-            return state;
-        case DELETE_CHATS:
-            console.log(action);
-            delete state.chats;
-            return state;
-        case SEND_MESSAGE:
-            return update(state, {
+                };
+            }
+            return {
                 chats: {
+                    ...state.chats,
                     [action.chatID]: {
-                        messageIDs: { $push: [action.messageID] }
+                        ...state.chats[action.chatID],
+                        messageIDs: [
+                            ...state.chats[action.chatID]["messageIDs"],
+                            action.messageID
+                        ]
                     }
                 }
-            });
-        case DELETE_MESSAGE:
-            delete state.chats;
-            return state;
+            };
         case DELETE_MESSAGES:
-            console.log(action);
-            state.chats[action.chatID].messageIDs = [];
-            return state;
+            return {
+                chats: {
+                    ...state.chats,
+                    [action.chatID]: {
+                        title: state.chats[action.chatID].title,
+                        messageIDs: []
+                    }
+                }
+            };
         default:
             return state;
     }

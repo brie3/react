@@ -23,7 +23,7 @@ export class MessageList extends Component {
     };
     render() {
         const { chatID, chats, messages } = this.props;
-        console.log(messages);
+        console.log(this.props);
         const list = chats[chatID]
             ? chats[chatID].messageIDs.map(id => (
                   <Message key={id} {...messages[id]} />

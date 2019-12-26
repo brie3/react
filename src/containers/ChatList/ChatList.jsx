@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { List, ListItem } from "@material-ui/core";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 import { ChatForm } from "../../components/ChatForm/ChatForm";
 import { addChat, deleteChats } from "../../actions/chatActions";
 import PropTypes from "prop-types";
@@ -20,24 +20,22 @@ export class ChatList extends Component {
     };
     render() {
         const { chats } = this.props;
-        const list = chats
-            ? Object.keys(chats).map(
-                  id =>
-                      chats[id] && (
-                          <ListItem
-                              key={id}
-                              onClick={() =>
-                                  this.handleNavigate(`/chats/${id}`)
-                              }
-                          >
-                              {chats[id].title}
-                          </ListItem>
-                      )
-              )
-            : "";
+        const list = Object.keys(chats);
+
         return (
             <div className="chat-container">
-                <List className="chat-list">{list}</List>
+                {list == [] && "Чатов нет"}
+                <List className="chat-list">
+                    {list.map(id => (
+                        <ListItem
+                            button
+                            key={id}
+                            onClick={() => this.handleNavigate(`/chats/${id}`)}
+                        >
+                            <ListItemText primary={chats[id].title} />
+                        </ListItem>
+                    ))}
+                </List>
                 <ChatForm
                     onSubmit={this.props.addChat}
                     onDelete={this.props.deleteChats}

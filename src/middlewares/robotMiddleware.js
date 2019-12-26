@@ -6,7 +6,6 @@ var botTimer = {};
 const robotMiddleware = store => next => action => {
     switch (action.type) {
         case ADD_CHAT:
-            clearTimeout(botTimer);
             botTimer = setTimeout(
                 () =>
                     store.dispatch(
@@ -20,7 +19,6 @@ const robotMiddleware = store => next => action => {
             store.dispatch(push("/chats/" + action.chatID));
             break;
         case SEND_MESSAGE:
-            console.log(action);
             if (action.message.name === "Robot") {
                 return next(action);
             }

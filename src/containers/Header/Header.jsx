@@ -17,11 +17,10 @@ export class Header extends Component {
     };
     render() {
         const { chatID, chats } = this.props;
+        console.log(this.props);
         const title =
             chatID && chats[chatID]
-                ? capitalizeFirstLetter(
-                      this.props.chats[this.props.chatID].title
-                  )
+                ? capitalizeFirstLetter(chats[chatID].title)
                 : "Chat";
         return (
             <Toolbar className="header">
@@ -36,9 +35,11 @@ export class Header extends Component {
     }
 }
 
-const mapStateToProps = ({ chatReducer }) => ({
-    chats: chatReducer.chats
-});
+const mapStateToProps = ({ chatReducer }) => {
+    return {
+        chats: chatReducer.chats
+    };
+};
 const mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
