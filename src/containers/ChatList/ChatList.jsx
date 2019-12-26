@@ -32,7 +32,12 @@ export class ChatList extends Component {
                             key={id}
                             onClick={() => this.handleNavigate(`/chats/${id}`)}
                         >
-                            <ListItemText primary={chats[id].title} />
+                            <ListItemText
+                                primary={
+                                    chats[id].title +
+                                    (chats[id].notice ? " new!" : "")
+                                }
+                            />
                         </ListItem>
                     ))}
                 </List>

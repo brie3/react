@@ -17,7 +17,6 @@ export class Header extends Component {
     };
     render() {
         const { chatID, chats } = this.props;
-        console.log(this.props);
         const title =
             chatID && chats[chatID]
                 ? capitalizeFirstLetter(chats[chatID].title)
