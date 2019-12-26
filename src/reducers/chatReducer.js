@@ -1,5 +1,9 @@
-import { ADD_CHAT, DELETE_CHAT } from "../actions/chatActions";
-import { SEND_MESSAGE, DELETE_MESSAGE } from "../actions/messageActions";
+import { ADD_CHAT, DELETE_CHAT, DELETE_CHATS } from "../actions/chatActions";
+import {
+    SEND_MESSAGE,
+    DELETE_MESSAGE,
+    DELETE_MESSAGES
+} from "../actions/messageActions";
 import update from "react-addons-update";
 
 const defaultState = {
@@ -21,47 +25,41 @@ const defaultState = {
 
 export default function chatReducer(state = defaultState, action) {
     switch (action.type) {
-    case ADD_CHAT:
-        let title = action.title
-            ? action.title
-            : `chat-${Object.keys(state.chats).length + 1}`;
-        return update(state, {
-            chats: {
-                $merge: {
-                    [action.chatID]: {
-                        title: title,
-                        messageIDs: []
+        case ADD_CHAT:
+            console.log(action);
+            return update(state, {
+                chats: {
+                    $merge: {
+                        [action.chatID]: {
+                            title: action.title,
+                            messageIDs: []
+                        }
                     }
                 }
-            }
-        });
-    case DELETE_CHAT:
-        delete state.chats[action.chatID];
-        return update(state, {
-            chats: {
-                $merge: {}
-            }
-        });
-    case SEND_MESSAGE:
-        return update(state, {
-            chats: {
-                [action.chatID]: {
-                    messageIDs: { $push: [action.messageID] }
+            });
+        case DELETE_CHAT:
+            delete state.chats;
+            return state;
+        case DELETE_CHATS:
+            console.log(action);
+            delete state.chats;
+            return state;
+        case SEND_MESSAGE:
+            return update(state, {
+                chats: {
+                    [action.chatID]: {
+                        messageIDs: { $push: [action.messageID] }
+                    }
                 }
-            }
-        });
-    case DELETE_MESSAGE:
-        let id = state.chats[action.chatID].messageIDs.find(
-            id => id == action.messageID
-        );
-        return update(state, {
-            chats: {
-                [action.chatID]: {
-                    messageIDs: { $splice: [[id, 1]] }
-                }
-            }
-        });
-    default:
-        return state;
+            });
+        case DELETE_MESSAGE:
+            delete state.chats;
+            return state;
+        case DELETE_MESSAGES:
+            console.log(action);
+            state.chats[action.chatID].messageIDs = [];
+            return state;
+        default:
+            return state;
     }
 }

@@ -1,4 +1,8 @@
-import { SEND_MESSAGE, DELETE_MESSAGE } from "../actions/messageActions";
+import {
+    SEND_MESSAGE,
+    DELETE_MESSAGE,
+    DELETE_MESSAGES
+} from "../actions/messageActions";
 import update from "react-addons-update";
 
 const defaultState = {
@@ -31,28 +35,26 @@ const defaultState = {
 
 export default function messageReducer(state = defaultState, action) {
     switch (action.type) {
-    case SEND_MESSAGE: {
-        const message = action.message;
-        return update(state, {
-            messages: {
-                $merge: {
-                    [action.messageID]: {
-                        name: message.name,
-                        content: message.content
+        case SEND_MESSAGE: {
+            console.log(action);
+            return update(state, {
+                messages: {
+                    $merge: {
+                        [action.messageID]: action.message
                     }
                 }
-            }
-        });
-    }
-    case DELETE_MESSAGE: {
-        delete state.messages[action.messageId];
-        return update(state, {
-            messages: {
-                $merge: {}
-            }
-        });
-    }
-    default:
-        return state;
+            });
+        }
+        case DELETE_MESSAGE: {
+            delete state.messages;
+            return state;
+        }
+        case DELETE_MESSAGES: {
+            console.log(action);
+            delete state.messages;
+            return state;
+        }
+        default:
+            return state;
     }
 }
