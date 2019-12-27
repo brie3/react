@@ -25,8 +25,8 @@ export class MessageList extends Component {
         const { chatID, chats, messages } = this.props;
         const list = chats[chatID]
             ? chats[chatID].messageIDs.map(id => (
-                <Message key={id} {...messages[id]} />
-            ))
+                  <Message key={id} {...messages[id]} />
+              ))
             : "";
         return (
             <div className="message-container">

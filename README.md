@@ -74,6 +74,17 @@
 3. Use middleware to blink (highlight in the list for a short time) the chat that received the message from the robot.
 4. Connect the Router to Redux and switch the transitions between chats from <Link> to push ().
 5. Connect redux-persist and save chats and messages with it.
-6.  - Implement the ability to delete chats and messages.
+6. Implement the ability to delete chats and messages.
+
+    </p>
+
+### Working with API
+
+   <p>
+
+1. Connect redux-api-middleware.
+2. Organize the loading of chats and messages through the API.
+3. Select entities (chats and messages) using normalizr.
+4. Download profile data through the API.
 
     </p>

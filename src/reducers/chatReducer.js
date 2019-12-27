@@ -4,101 +4,114 @@ import {
     SHOW_NOTICE,
     HIDE_NOTICE
 } from "../actions/chatActions";
+import {
+    START_LOADING_STATE,
+    SUCCESS_LOADING_STATE,
+    ERROR_LOADING_STATE
+} from "../actions/apiActions";
 import { SEND_MESSAGE, DELETE_MESSAGES } from "../actions/messageActions";
-import { RESET_STATE } from "../actions/profileActions";
+import { RESET_STATE } from "../actions/apiActions";
 
 const defaultState = {
-    chats: {
-        1: {
-            title: "chat-1",
-            messageIDs: [0, 1],
-            notice: false
-        },
-        2: {
-            title: "chat-2",
-            messageIDs: [2, 3],
-            notice: false
-        },
-        3: {
-            title: "chat-3",
-            messageIDs: [4],
-            notice: false
-        }
-    }
+    chats: {},
+    isChatsLoading: false
 };
 
 export default function chatReducer(state = defaultState, action) {
     switch (action.type) {
-    case ADD_CHAT:
-        return {
-            chats: {
-                ...state.chats,
-                [action.chatID]: { title: action.title, messageIDs: [] }
+        case START_LOADING_STATE:
+            console.log(action);
+            return {
+                chats: {
+                    ...state.chats
+                },
+                isChatsLoading: true
+            };
+        case SUCCESS_LOADING_STATE:
+            console.log(action);
+            return {
+                chats: {
+                    ...action.payload.entities.chats
+                },
+                isChatsLoading: false
+            };
+        case ERROR_LOADING_STATE:
+            return {
+                chats: {
+                    ...state.chats
+                },
+                isChatsLoading: false
+            };
+        case ADD_CHAT:
+            return {
+                chats: {
+                    ...state.chats,
+                    [action.chatID]: { title: action.title, messageIDs: [] }
+                }
+            };
+        case DELETE_CHATS:
+            return {
+                chats: {}
+            };
+        case SEND_MESSAGE:
+            if (!(action.chatID in state.chats)) {
+                return {
+                    chats: {
+                        ...state.chats,
+                        [action.chatID]: {
+                            title: action.title,
+                            messageIDs: [action.messageID]
+                        }
+                    }
+                };
             }
-        };
-    case DELETE_CHATS:
-        return {
-            chats: {}
-        };
-    case SEND_MESSAGE:
-        if (!(action.chatID in state.chats)) {
             return {
                 chats: {
                     ...state.chats,
                     [action.chatID]: {
-                        title: action.title,
-                        messageIDs: [action.messageID]
+                        ...state.chats[action.chatID],
+                        messageIDs: [
+                            ...state.chats[action.chatID]["messageIDs"],
+                            action.messageID
+                        ]
                     }
                 }
             };
-        }
-        return {
-            chats: {
-                ...state.chats,
-                [action.chatID]: {
-                    ...state.chats[action.chatID],
-                    messageIDs: [
-                        ...state.chats[action.chatID]["messageIDs"],
-                        action.messageID
-                    ]
+        case DELETE_MESSAGES:
+            return {
+                chats: {
+                    ...state.chats,
+                    [action.chatID]: {
+                        title: state.chats[action.chatID].title,
+                        messageIDs: []
+                    }
                 }
-            }
-        };
-    case DELETE_MESSAGES:
-        return {
-            chats: {
-                ...state.chats,
-                [action.chatID]: {
-                    title: state.chats[action.chatID].title,
-                    messageIDs: []
+            };
+        case RESET_STATE:
+            return defaultState;
+        case SHOW_NOTICE:
+            return {
+                chats: {
+                    ...state.chats,
+                    [action.chatID]: {
+                        title: state.chats[action.chatID].title,
+                        messageIDs: state.chats[action.chatID].messageIDs,
+                        notice: true
+                    }
                 }
-            }
-        };
-    case RESET_STATE:
-        return defaultState;
-    case SHOW_NOTICE:
-        return {
-            chats: {
-                ...state.chats,
-                [action.chatID]: {
-                    title: state.chats[action.chatID].title,
-                    messageIDs: state.chats[action.chatID].messageIDs,
-                    notice: true
+            };
+        case HIDE_NOTICE:
+            return {
+                chats: {
+                    ...state.chats,
+                    [action.chatID]: {
+                        title: state.chats[action.chatID].title,
+                        messageIDs: state.chats[action.chatID].messageIDs,
+                        notice: false
+                    }
                 }
-            }
-        };
-    case HIDE_NOTICE:
-        return {
-            chats: {
-                ...state.chats,
-                [action.chatID]: {
-                    title: state.chats[action.chatID].title,
-                    messageIDs: state.chats[action.chatID].messageIDs,
-                    notice: false
-                }
-            }
-        };
-    default:
-        return state;
+            };
+        default:
+            return state;
     }
 }

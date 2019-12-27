@@ -3,89 +3,85 @@ import {
     DELETE_MESSAGES,
     IS_NEW
 } from "../actions/messageActions";
+import {
+    START_LOADING_STATE,
+    SUCCESS_LOADING_STATE,
+    ERROR_LOADING_STATE
+} from "../actions/apiActions";
 import { DELETE_CHATS } from "../actions/chatActions";
-import { RESET_STATE } from "../actions/profileActions";
+import { RESET_STATE } from "../actions/apiActions";
 
 const defaultState = {
-    messages: {
-        0: {
-            name: "Vasia Pupkine",
-            content:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-            isNew: false
-        },
-        1: {
-            name: "Doloremque",
-            content:
-                "In hac habitasse platea dictumst. Sed quis eros suscipit, tristique augue quis",
-            isNew: false
-        },
-        2: {
-            name: "Voluptatum",
-            content:
-                "Rerum totam dicta error, doloremque officiis rem molestias asperiores cupiditate,",
-            isNew: false
-        },
-        3: {
-            name: "Aspernatur",
-            content: "Veritatis aliquam eaque provident voluptatum fuga?",
-            isNew: false
-        },
-        4: {
-            name: "Velit",
-            content:
-                "Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus. Velit quia id omnis incidunt fugit dolores hic, aperiam perspiciatis quidem natus.",
-            isNew: false
-        }
-    }
+    messages: {},
+    isMessagesLoaging: false
 };
 
 export default function messageReducer(state = defaultState, action) {
     switch (action.type) {
-    case SEND_MESSAGE: {
-        return {
-            messages: {
-                ...state.messages,
-                [action.messageID]: action.message
-            }
-        };
-    }
-    case IS_NEW: {
-        return {
-            messages: {
-                ...state.messages,
-                [action.messageID]: {
-                    name: state.messages[action.messageID].name,
-                    content: state.messages[action.messageID].content,
-                    isNew: false
+        case START_LOADING_STATE:
+            return {
+                messages: {
+                    ...state.message
+                },
+                isMessagesLoaging: true
+            };
+        case SUCCESS_LOADING_STATE:
+            return {
+                messages: {
+                    ...action.payload.entities.messages
+                },
+                isMessagesLoaging: false
+            };
+        case ERROR_LOADING_STATE:
+            return {
+                messages: {
+                    ...state.messages
+                },
+                isMessagesLoaging: false
+            };
+        case SEND_MESSAGE: {
+            return {
+                messages: {
+                    ...state.messages,
+                    [action.messageID]: action.message
                 }
-            }
-        };
-    }
-    case DELETE_MESSAGES: {
-        let messages = state.messages;
-        action.messageIDs.forEach(element => {
-            delete messages[element];
-        });
-        return {
-            messages: {
-                ...messages
-            }
-        };
-    }
-    case DELETE_CHATS: {
-        return {
-            messages: {}
-        };
-    }
-    case RESET_STATE: {
-        return {
-            messages: {
-                ...defaultState.messages
-            }
-        };
-    }
-    default:
-        return state;
+            };
+        }
+        case IS_NEW: {
+            return {
+                messages: {
+                    ...state.messages,
+                    [action.messageID]: {
+                        name: state.messages[action.messageID].name,
+                        content: state.messages[action.messageID].content
+                    }
+                }
+            };
+        }
+        case DELETE_MESSAGES: {
+            let messages = state.messages;
+            action.messageIDs.forEach(element => {
+                delete messages[element];
+            });
+            return {
+                messages: {
+                    ...messages
+                }
+            };
+        }
+        case DELETE_CHATS: {
+            return {
+                messages: {}
+            };
+        }
+        case RESET_STATE: {
+            return {
+                messages: {
+                    ...defaultState.messages
+                }
+            };
+        }
+        default:
+            return state;
     }
 }
