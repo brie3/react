@@ -20,7 +20,6 @@ const defaultState = {
 export default function chatReducer(state = defaultState, action) {
     switch (action.type) {
         case START_LOADING_STATE:
-            console.log(action);
             return {
                 chats: {
                     ...state.chats
@@ -28,7 +27,6 @@ export default function chatReducer(state = defaultState, action) {
                 isChatsLoading: true
             };
         case SUCCESS_LOADING_STATE:
-            console.log(action);
             return {
                 chats: {
                     ...action.payload.entities.chats

@@ -19,10 +19,7 @@ export class MessageForm extends Component {
             name: this.state.author ? this.state.author : "Anonymous",
             content: this.state.content
         });
-        this.setState({
-            author: "",
-            content: ""
-        });
+        this.setState({ content: "" });
     };
     handleChange = event => {
         this.setState({
