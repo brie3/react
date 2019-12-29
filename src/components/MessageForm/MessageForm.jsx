@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Fab, TextField } from "@material-ui/core";
-import { Send, DeleteForever } from "@material-ui/icons";
+import { Send } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import("./MessageForm.sass");
 
@@ -11,8 +11,7 @@ export class MessageForm extends Component {
     };
     static propTypes = {
         chatID: PropTypes.string,
-        onSubmit: PropTypes.func.isRequired,
-        onDelete: PropTypes.func.isRequired
+        onSubmit: PropTypes.func.isRequired
     };
     handleSend = () => {
         this.props.onSubmit({
@@ -52,13 +51,6 @@ export class MessageForm extends Component {
                 />
                 <Fab onClick={this.handleSend} size="small" color="primary">
                     <Send fontSize="small" />
-                </Fab>
-                <Fab
-                    onClick={this.props.onDelete}
-                    size="small"
-                    color="secondary"
-                >
-                    <DeleteForever fontSize="small" />
                 </Fab>
             </div>
         );

@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { List } from "@material-ui/core";
 import { Chat } from "../Chat/Chat";
 import { ChatForm } from "../../components/ChatForm/ChatForm";
-import { addChat, deleteChats } from "../../actions/chatActions";
+import { addChat, deleteChat } from "../../actions/chatActions";
 import { loadState } from "../../actions/apiActions";
 import PropTypes from "prop-types";
 import("./ChatList.sass");
@@ -17,7 +17,7 @@ export class ChatList extends Component {
         chats: PropTypes.object,
         addChat: PropTypes.func.isRequired,
         push: PropTypes.func.isRequired,
-        deleteChats: PropTypes.func.isRequired,
+        deleteChat: PropTypes.func.isRequired,
         isChatsLoading: PropTypes.bool
     };
     componentDidMount() {
@@ -25,6 +25,9 @@ export class ChatList extends Component {
     }
     handleNavigate = link => {
         this.props.push(link);
+    };
+    handleDelete = id => {
+        this.props.deleteChat(id);
     };
     render() {
         const { chatID, chats, isChatsLoading } = this.props;
@@ -38,16 +41,14 @@ export class ChatList extends Component {
                                 id={id}
                                 key={id}
                                 chatID={chatID}
+                                onDelete={this.handleDelete}
                                 onNavigate={this.handleNavigate}
                                 title={chats[id].title}
                                 notice={chats[id].notice}
                             />
                         ))}
                 </List>
-                <ChatForm
-                    onSubmit={this.props.addChat}
-                    onDelete={this.props.deleteChats}
-                />
+                <ChatForm onSubmit={this.props.addChat} />
             </div>
         );
     }
@@ -57,6 +58,6 @@ const mapStateToProps = ({ chatReducer }) => ({
     isChatsLoading: chatReducer.isChatsLoading
 });
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ addChat, push, deleteChats, loadState }, dispatch);
+    bindActionCreators({ addChat, push, deleteChat, loadState }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);

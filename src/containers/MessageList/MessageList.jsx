@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Message } from "../../components/Message/Message";
 import { MessageForm } from "../../components/MessageForm/MessageForm";
-import { sendMessage, deleteMessages } from "../../actions/messageActions";
+import { sendMessage, deleteMessage } from "../../actions/messageActions";
 import { connect } from "react-redux";
 import { animateScroll } from "react-scroll";
 import { bindActionCreators } from "redux";
@@ -14,7 +14,7 @@ export class MessageList extends Component {
         chats: PropTypes.object,
         messages: PropTypes.object,
         sendMessage: PropTypes.func,
-        deleteMessages: PropTypes.func,
+        deleteMessage: PropTypes.func,
         isChatsLoading: PropTypes.bool
     };
     componentDidUpdate() {
@@ -28,8 +28,8 @@ export class MessageList extends Component {
     handleSendMessage = message => {
         this.props.sendMessage(this.props.chatID, message);
     };
-    handleDeleteMessage = () => {
-        //this.props.deleteMessage(this.props.chatID);
+    handleDeleteMessage = id => {
+        this.props.deleteMessage(this.props.chatID, id);
     };
     render() {
         const { chatID, chats, messages, isChatsLoading } = this.props;
@@ -41,15 +41,13 @@ export class MessageList extends Component {
                         chats[chatID].messageIDs.map(id => (
                             <Message
                                 key={id}
+                                id={id}
                                 {...messages[id]}
                                 onDelete={this.handleDeleteMessage}
                             />
                         ))}
                 </div>
-                <MessageForm
-                    onSubmit={this.handleSendMessage}
-                    onDelete={this.handleDeleteMessages}
-                />
+                <MessageForm onSubmit={this.handleSendMessage} />
             </div>
         );
     }
@@ -60,6 +58,6 @@ const mapStateToProps = ({ chatReducer, messageReducer }) => ({
     isChatsLoading: chatReducer.isChatsLoading
 });
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ sendMessage, deleteMessages }, dispatch);
+    bindActionCreators({ sendMessage, deleteMessage }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageList);

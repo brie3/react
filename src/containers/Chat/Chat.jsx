@@ -23,7 +23,7 @@ export function Chat({ id, onNavigate, title, onDelete, notice, chatID }) {
             <DeleteOutlinedIcon
                 className="chat-delete"
                 viewBox="0 0 24 24"
-                onClick={onDelete}
+                onClick={() => onDelete(id)}
             />
         </ListItem>
     );
