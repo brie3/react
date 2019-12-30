@@ -49,7 +49,12 @@ export class MessageForm extends Component {
                     onKeyDown={this.handleKeyDown}
                     autoFocus
                 />
-                <Fab onClick={this.handleSend} size="small" color="primary">
+                <Fab
+                    onClick={this.handleSend}
+                    size="small"
+                    color="primary"
+                    label="Send Message"
+                >
                     <Send fontSize="small" />
                 </Fab>
             </div>

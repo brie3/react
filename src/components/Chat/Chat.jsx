@@ -21,6 +21,7 @@ export function Chat({ id, onNavigate, title, onDelete, notice, chatID }) {
         >
             <ListItemText primary={title} />
             <DeleteOutlinedIcon
+                label="Delete Chat"
                 className="chat-delete"
                 viewBox="0 0 24 24"
                 onClick={() => onDelete(id)}

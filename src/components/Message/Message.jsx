@@ -23,6 +23,7 @@ export function Message({ id, name, content, date, isNew, onDelete }) {
             }
             action={
                 <DeleteOutlinedIcon
+                    aria-label="Delete Message"
                     className="message-delete"
                     viewBox="0 0 24 24"
                     onClick={() => onDelete(id)}

@@ -3,7 +3,7 @@ import { push } from "connected-react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { List } from "@material-ui/core";
-import { Chat } from "../Chat/Chat";
+import { Chat } from "../../components/Chat/Chat";
 import { ChatForm } from "../../components/ChatForm/ChatForm";
 import { addChat, deleteChat } from "../../actions/chatActions";
 import { loadState } from "../../actions/apiActions";

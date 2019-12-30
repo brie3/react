@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Fab, TextField } from "@material-ui/core";
-import { ChatBubble, DeleteForever } from "@material-ui/icons";
+import { ChatBubble } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import("./ChatForm.sass");
 
@@ -14,6 +14,7 @@ export function ChatForm({ onSubmit }) {
                 onChange={e => setChatName(e.target.value)}
             />
             <Fab
+                label="Submit Chat"
                 onClick={() => {
                     onSubmit(chatName);
                     setChatName("");

@@ -88,3 +88,18 @@
 4. Download profile data through the API.
 
     </p>
+
+### Progressive Web App
+
+   <p>
+
+1. Install Lighthouse.
+2. Connect the service-worker.
+3. Add Web App Manifest and Icons.
+4. Install the application on the desktop.
+5. Implement mobile layout.
+6. Implement a popup prompting you to install for iPhone.
+7. Add a script for tracking installations.
+8. Subscribe to push notifications and receive a subscriptionID
+
+    </p>
