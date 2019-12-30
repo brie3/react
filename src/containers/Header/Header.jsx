@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Toolbar, Typography, CircularProgress } from "@material-ui/core";
 import PropTypes from "prop-types";
+import PushToggle from "../../components/PushToggle/PushToggle";
 import("./Header.sass");
 
 export class Header extends Component {
@@ -21,6 +22,7 @@ export class Header extends Component {
         const title = chatID && chats[chatID] ? chats[chatID].title : "chat";
         return (
             <Toolbar className="header">
+                <PushToggle />
                 <Typography
                     onClick={() => this.handleNavigate("/profile")}
                     variant="h6"

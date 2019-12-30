@@ -7,6 +7,7 @@ import { Chat } from "../../components/Chat/Chat";
 import { ChatForm } from "../../components/ChatForm/ChatForm";
 import { addChat, deleteChat } from "../../actions/chatActions";
 import { loadState } from "../../actions/apiActions";
+import InstallPopup from "../../components/InstallPopup/InstallPopup";
 import PropTypes from "prop-types";
 import("./ChatList.sass");
 
@@ -48,6 +49,7 @@ export class ChatList extends Component {
                             />
                         ))}
                 </List>
+                <InstallPopup />
                 <ChatForm onSubmit={this.props.addChat} />
             </div>
         );
