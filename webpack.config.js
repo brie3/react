@@ -16,18 +16,7 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 include: path.resolve(__dirname, "src"),
-                loader: "babel-loader",
-                options: {
-                    presets: ["@babel/env", "@babel/react"],
-                    plugins: [
-                        [
-                            "@babel/plugin-proposal-class-properties",
-                            {
-                                loose: true
-                            }
-                        ]
-                    ]
-                }
+                loader: "babel-loader"
             },
             {
                 test: /\.s[ac]ss$/i,
