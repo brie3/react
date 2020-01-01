@@ -17,7 +17,7 @@ export function Message({ id, name, content, date, isNew, onDelete }) {
                 <div>
                     <p>{content}</p>
                     <small>
-                        created on {date} by <b>{name}</b>
+                        created on {date} by <b>{name || "Anonymous"}</b>
                     </small>
                 </div>
             }

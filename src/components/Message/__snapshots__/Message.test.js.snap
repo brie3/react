@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Message>  renders our content 1`] = `
+<div
+  className="MuiTypography-root MuiPaper-root MuiPaper-elevation6 MuiSnackbarContent-root message message-person MuiTypography-body2"
+  role="alert"
+>
+  <div
+    className="MuiSnackbarContent-message"
+  >
+    <div>
+      <p>
+        My content
+      </p>
+      <small>
+        created on 
+         by 
+        <b>
+          My user
+        </b>
+      </small>
+    </div>
+  </div>
+  <div
+    className="MuiSnackbarContent-action"
+  >
+    <svg
+      aria-hidden="true"
+      aria-label="Delete Message"
+      className="MuiSvgIcon-root message-delete"
+      focusable="false"
+      onClick={[Function]}
+      role="presentation"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M14.12 10.47L12 12.59l-2.13-2.12-1.41 1.41L10.59 14l-2.12 2.12 1.41 1.41L12 15.41l2.12 2.12 1.41-1.41L13.41 14l2.12-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"
+      />
+    </svg>
+  </div>
+</div>
+`;
