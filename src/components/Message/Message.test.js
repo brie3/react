@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { Message } from "./Message";
 import { shallow } from "enzyme";
+import { Tune } from "@material-ui/icons";
 
 describe("<Message>", () => {
     it(" renders our content", () => {
@@ -13,7 +14,9 @@ describe("<Message>", () => {
     it("message without name", () => {
         const props = { content: "My content" };
         const element = shallow(<Message {...props} />);
-        expect(element.contains(<b>"Anonymous"</b>)).toBe(true);
+        expect(element.contains(<b>Anonymous</b>)).toBe(true);
+        element.setProps({ name: "My user" });
+        expect(element.contains(<b>My user</b>)).toBe(true);
     });
     it("message with name", () => {
         const props = { name: "My user" };
